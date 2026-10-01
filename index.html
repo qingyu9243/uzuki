@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Uzuki — handmade flowers, quiet rituals, and playful workshops."
+    />
+    <title>Uzuki — Handmade Flowers &amp; Small Rituals</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="wordmark" href="#top" aria-label="Uzuki home">uzuki<span>。</span></a>
+      <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
+      <nav id="site-nav" class="site-nav" aria-label="Main navigation">
+        <a href="#story">Story</a>
+        <a href="#workshops">Workshops</a>
+        <a href="#make">Make</a>
+        <a href="#shop">Shop</a>
+      </nav>
+      <a class="header-note" href="#contact">Say hello <span>↗</span></a>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <p class="eyebrow">Handmade flowers · tiny rituals · Los Angeles</p>
+        <div class="hero-copy">
+          <p class="hero-kicker">a studio for</p>
+          <h1 id="hero-title">things made<br /><em>slowly, lovingly.</em></h1>
+          <p class="hero-intro">
+            Uzuki makes small worlds in flower, bead and pixel — made to give,
+            wear and gather around.
+          </p>
+          <a class="text-link" href="#workshops">Find a workshop <span>↓</span></a>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="sun"></div>
+          <div class="stem stem-one"></div>
+          <div class="stem stem-two"></div>
+          <div class="flower flower-one"><i></i><i></i><i></i><i></i><b></b></div>
+          <div class="flower flower-two"><i></i><i></i><i></i><i></i><b></b></div>
+          <div class="flower flower-three"><i></i><i></i><i></i><i></i><b></b></div>
+          <span class="art-caption">01 / 04<br />a little spring,<br />all year long</span>
+        </div>
+      </section>
+
+      <section id="story" class="story section">
+        <div class="section-label">01 — The studio</div>
+        <div class="story-copy">
+          <p class="display-text">A softer place to <em>make, notice</em> and keep.</p>
+          <p>
+            We bring together flower arranging, beadwork and pixel play for
+            people who want to make something with their own two hands. No
+            experience needed — only curiosity.
+          </p>
+          <a class="text-link" href="#contact">Meet Uzuki <span>↗</span></a>
+        </div>
+        <div class="story-object" aria-label="Abstract handmade flower illustration">
+          <div class="vase"></div>
+          <div class="vase-flower vf-one"></div>
+          <div class="vase-flower vf-two"></div>
+          <div class="vase-flower vf-three"></div>
+          <span>made with<br />patient hands</span>
+        </div>
+      </section>
+
+      <section id="workshops" class="workshops section">
+        <div class="section-label">02 — Gather &amp; make</div>
+        <div class="section-heading">
+          <h2>Upcoming workshops</h2>
+          <p>Small tables, seasonal materials and a gentle pace.</p>
+        </div>
+        <div class="workshop-list">
+          <article class="workshop-card peach">
+            <p class="card-number">01</p>
+            <p class="workshop-date">OCT 12 · 2–4 PM</p>
+            <h3>Autumn flower<br />composition</h3>
+            <p>Build a quietly wild arrangement with late-season blooms.</p>
+            <a href="#contact" aria-label="Reserve a spot for Autumn flower composition">Reserve a spot <span>↗</span></a>
+          </article>
+          <article class="workshop-card lavender">
+            <p class="card-number">02</p>
+            <p class="workshop-date">OCT 26 · 1–3 PM</p>
+            <h3>Crystal bracelet<br />ritual</h3>
+            <p>Choose stones by feeling, then make a bracelet to take home.</p>
+            <a href="#make" aria-label="Design a bracelet">Try the bead lab <span>↗</span></a>
+          </article>
+          <article class="workshop-card butter">
+            <p class="card-number">03</p>
+            <p class="workshop-date">NOV 09 · 2–5 PM</p>
+            <h3>Pixel flower<br />garden</h3>
+            <p>Turn a tiny image into a joyful, meltable-bead keepsake.</p>
+            <a href="#contact" aria-label="Join the Pixel flower garden workshop">Join the list <span>↗</span></a>
+          </article>
+        </div>
+      </section>
+
+      <section id="make" class="bead-lab section" aria-labelledby="bead-title">
+        <div class="lab-topline">
+          <div class="section-label">03 — Make it yours</div>
+          <p class="lab-status"><span></span> Live prototype</p>
+        </div>
+        <div class="lab-grid">
+          <div class="lab-copy">
+            <p class="eyebrow">Uzuki bead lab</p>
+            <h2 id="bead-title">Design a small<br /><em>daily talisman.</em></h2>
+            <p>
+              Pick a palette, then build a one-of-a-kind crystal bracelet. This
+              is a tiny preview of the interactive maker we are building.
+            </p>
+            <div class="palette" role="group" aria-label="Choose a bead palette">
+              <button class="palette-button active" data-palette="rose" aria-pressed="true">
+                <span class="swatch rose"></span> Rose quiet
+              </button>
+              <button class="palette-button" data-palette="dusk" aria-pressed="false">
+                <span class="swatch dusk"></span> Dusk blue
+              </button>
+              <button class="palette-button" data-palette="moss" aria-pressed="false">
+                <span class="swatch moss"></span> Moss garden
+              </button>
+            </div>
+          </div>
+          <div class="bracelet-maker">
+            <div class="bracelet-frame" aria-live="polite">
+              <div class="bracelet-string"></div>
+              <div id="beads" class="beads" aria-label="Your bracelet beads"></div>
+              <div class="charm" aria-hidden="true">✦</div>
+            </div>
+            <div class="maker-actions">
+              <button id="shuffle-button" class="button-secondary">Shuffle beads</button>
+              <button id="save-button" class="button-primary">Save my design <span>↗</span></button>
+            </div>
+            <p id="design-note" class="design-note">8 beads · rose quartz &amp; warm light</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="shop" class="shop section">
+        <div class="section-label">04 — Take a piece home</div>
+        <div class="shop-layout">
+          <div>
+            <h2>Made to be<br /><em>given.</em></h2>
+            <p>
+              Find ready-made flowers, charms and little objects for slow days
+              in the Uzuki Etsy shop.
+            </p>
+            <a class="button-primary" href="https://www.etsy.com" target="_blank" rel="noreferrer">Visit Etsy <span>↗</span></a>
+          </div>
+          <div class="product-stack" aria-label="Three abstract product cards">
+            <div class="product product-one"><span>for your<br />favorite person</span><b>✳</b></div>
+            <div class="product product-two"><span>a handful<br />of joy</span><b>❋</b></div>
+            <div class="product product-three"><span>tiny things,<br />big feeling</span><b>✦</b></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer id="contact" class="site-footer">
+      <p class="footer-mark">uzuki<span>。</span></p>
+      <div>
+        <p class="eyebrow">Come make something</p>
+        <a class="footer-email" href="mailto:hello@uzuki.studio">hello@uzuki.studio</a>
+      </div>
+      <div class="footer-links">
+        <a href="https://instagram.com" target="_blank" rel="noreferrer">Instagram ↗</a>
+        <a href="https://www.etsy.com" target="_blank" rel="noreferrer">Etsy ↗</a>
+        <span>© <span id="year"></span> Uzuki</span>
+      </div>
+    </footer>
+  </body>
+</html>
