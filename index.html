@@ -104,42 +104,48 @@
         </div>
       </section>
 
-      <section id="make" class="bead-lab section" aria-labelledby="bead-title">
+      <section id="make" class="bouquet-lab section" aria-labelledby="bouquet-title">
         <div class="lab-topline">
           <div class="section-label">03 — Make it yours</div>
           <p class="lab-status"><span></span> Live prototype</p>
         </div>
         <div class="lab-grid">
           <div class="lab-copy">
-            <p class="eyebrow">Uzuki bead lab</p>
-            <h2 id="bead-title">Design a small<br /><em>daily talisman.</em></h2>
+            <p class="eyebrow">Uzuki flower bar</p>
+            <h2 id="bouquet-title">Gather a little<br /><em>garden to give.</em></h2>
             <p>
-              Pick a palette, then build a one-of-a-kind crystal bracelet. This
-              is a tiny preview of the interactive maker we are building.
+              Pick the blooms that feel like them, choose a wrap, then make a
+              bouquet that is entirely your own.
             </p>
-            <div class="palette" role="group" aria-label="Choose a bead palette">
-              <button class="palette-button active" data-palette="rose" aria-pressed="true">
-                <span class="swatch rose"></span> Rose quiet
+            <div class="flower-picker" role="group" aria-label="Choose flowers for your bouquet">
+              <button class="flower-choice active" data-flower="cosmos" aria-pressed="true">
+                <span class="mini-flower cosmos"></span> Cosmos
               </button>
-              <button class="palette-button" data-palette="dusk" aria-pressed="false">
-                <span class="swatch dusk"></span> Dusk blue
+              <button class="flower-choice active" data-flower="daisy" aria-pressed="true">
+                <span class="mini-flower daisy"></span> Daisy
               </button>
-              <button class="palette-button" data-palette="moss" aria-pressed="false">
-                <span class="swatch moss"></span> Moss garden
+              <button class="flower-choice" data-flower="sweetpea" aria-pressed="false">
+                <span class="mini-flower sweetpea"></span> Sweet pea
               </button>
+            </div>
+            <p class="wrap-label">Choose a wrap</p>
+            <div class="wrap-picker" role="group" aria-label="Choose bouquet wrapping">
+              <button class="wrap-choice active" data-wrap="petal" aria-pressed="true"><span></span> Petal paper</button>
+              <button class="wrap-choice" data-wrap="linen" aria-pressed="false"><span></span> Linen cream</button>
+              <button class="wrap-choice" data-wrap="sage" aria-pressed="false"><span></span> Sage tissue</button>
             </div>
           </div>
-          <div class="bracelet-maker">
-            <div class="bracelet-frame" aria-live="polite">
-              <div class="bracelet-string"></div>
-              <div id="beads" class="beads" aria-label="Your bracelet beads"></div>
-              <div class="charm" aria-hidden="true">✦</div>
+          <div class="bouquet-maker">
+            <div class="bouquet-frame" aria-live="polite">
+              <div id="bouquet" class="bouquet" aria-label="Your selected bouquet"></div>
+              <div id="bouquet-wrap" class="bouquet-wrap petal" aria-hidden="true"></div>
+              <div class="bouquet-ribbon" aria-hidden="true"></div>
             </div>
             <div class="maker-actions">
-              <button id="shuffle-button" class="button-secondary">Shuffle beads</button>
-              <button id="save-button" class="button-primary">Save my design <span>↗</span></button>
+              <button id="shuffle-button" class="button-secondary">Arrange again</button>
+              <button id="save-button" class="button-primary">Save my bouquet <span>↗</span></button>
             </div>
-            <p id="design-note" class="design-note">8 beads · rose quartz &amp; warm light</p>
+            <p id="design-note" class="design-note">A soft posy of cosmos &amp; daisies</p>
           </div>
         </div>
       </section>

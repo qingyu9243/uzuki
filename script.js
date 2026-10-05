@@ -1,82 +1,114 @@
-const palettes = {
-  rose: {
-    colors: ["#d9929d", "#f2c0ac", "#f4dfc6", "#ba6679", "#ddbaa6"],
-    note: "rose quartz & warm light",
-  },
-  dusk: {
-    colors: ["#7188a6", "#b6c3d4", "#718074", "#d8d0c2", "#52677e"],
-    note: "blue lace & evening air",
-  },
-  moss: {
-    colors: ["#87986e", "#c3bf89", "#d7a69b", "#5d765b", "#e6d5ad"],
-    note: "moss agate & new leaves",
-  },
+const flowerNames = {
+  cosmos: "cosmos",
+  daisy: "daisies",
+  sweetpea: "sweet peas",
 };
 
-const positions = [
-  [12, 50], [19, 30], [34, 19], [52, 16], [70, 21], [84, 34], [90, 52], [79, 70], [61, 79], [40, 79], [23, 70], [10, 56],
-];
-
-const beads = document.querySelector("#beads");
+const bouquet = document.querySelector("#bouquet");
+const bouquetWrap = document.querySelector("#bouquet-wrap");
 const note = document.querySelector("#design-note");
-let currentPalette = "rose";
+let selectedFlowers = ["cosmos", "daisy"];
+let currentWrap = "petal";
 let seed = 0;
 
-function drawBracelet() {
-  const { colors, note: paletteNote } = palettes[currentPalette];
-  beads.innerHTML = "";
-  positions.forEach(([x, y], index) => {
-    const bead = document.createElement("span");
-    bead.className = "bead";
-    bead.style.setProperty("--x", `${x}%`);
-    bead.style.setProperty("--y", `${y}%`);
-    bead.style.background = colors[(index * 3 + seed) % colors.length];
-    bead.title = "A bead in your Uzuki bracelet";
-    beads.appendChild(bead);
+function updateFlowerChoices() {
+  document.querySelectorAll(".flower-choice").forEach((button) => {
+    const active = selectedFlowers.includes(button.dataset.flower);
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-pressed", String(active));
   });
-  note.textContent = `${positions.length} beads · ${paletteNote}`;
 }
 
-document.querySelectorAll(".palette-button").forEach((button) => {
+function updateWrapChoices() {
+  document.querySelectorAll(".wrap-choice").forEach((button) => {
+    const active = button.dataset.wrap === currentWrap;
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-pressed", String(active));
+  });
+  bouquetWrap.className = `bouquet-wrap ${currentWrap}`;
+}
+
+function bouquetNote() {
+  const flowers = selectedFlowers.map((flower) => flowerNames[flower]);
+  if (!flowers.length) return "Pick at least one bloom to begin";
+  return `A soft posy of ${flowers.join(" & ")}`;
+}
+
+function drawBouquet() {
+  bouquet.innerHTML = "";
+  if (!selectedFlowers.length) {
+    note.textContent = bouquetNote();
+    return;
+  }
+
+  const arrangement = [
+    [14, 177, -28], [28, 214, -17], [42, 191, -7], [50, 230, 0],
+    [59, 198, 8], [71, 217, 17], [85, 181, 28], [36, 235, -12], [65, 238, 12],
+  ];
+
+  arrangement.forEach(([x, stemHeight, tilt], index) => {
+    const flower = selectedFlowers[(index + seed) % selectedFlowers.length];
+    const stem = document.createElement("div");
+    stem.className = `bouquet-stem ${flower}`;
+    stem.style.left = `${x}%`;
+    stem.style.setProperty("--stem-height", `${stemHeight}px`);
+    stem.style.setProperty("--tilt", `${tilt}deg`);
+
+    const bloom = document.createElement("div");
+    bloom.className = "bouquet-bloom";
+    for (let petal = 0; petal < 5; petal += 1) bloom.appendChild(document.createElement("span"));
+    stem.appendChild(bloom);
+    bouquet.appendChild(stem);
+  });
+  note.textContent = bouquetNote();
+}
+
+document.querySelectorAll(".flower-choice").forEach((button) => {
   button.addEventListener("click", () => {
-    currentPalette = button.dataset.palette;
-    document.querySelectorAll(".palette-button").forEach((item) => {
-      const active = item === button;
-      item.classList.toggle("active", active);
-      item.setAttribute("aria-pressed", String(active));
-    });
-    drawBracelet();
+    const flower = button.dataset.flower;
+    if (selectedFlowers.includes(flower)) {
+      selectedFlowers = selectedFlowers.filter((item) => item !== flower);
+    } else {
+      selectedFlowers = [...selectedFlowers, flower];
+    }
+    updateFlowerChoices();
+    drawBouquet();
+  });
+});
+
+document.querySelectorAll(".wrap-choice").forEach((button) => {
+  button.addEventListener("click", () => {
+    currentWrap = button.dataset.wrap;
+    updateWrapChoices();
   });
 });
 
 document.querySelector("#shuffle-button").addEventListener("click", () => {
-  seed = (seed + 1) % palettes[currentPalette].colors.length;
-  drawBracelet();
+  seed = (seed + 1) % Math.max(selectedFlowers.length, 1);
+  drawBouquet();
 });
 
 document.querySelector("#save-button").addEventListener("click", () => {
-  const design = { palette: currentPalette, seed, savedAt: new Date().toISOString() };
-  localStorage.setItem("uzuki-bracelet", JSON.stringify(design));
-  note.textContent = "saved in this browser · bring it to a workshop";
+  const design = { flowers: selectedFlowers, wrap: currentWrap, seed, savedAt: new Date().toISOString() };
+  localStorage.setItem("uzuki-bouquet", JSON.stringify(design));
+  note.textContent = "saved in this browser · ready to bring to the flower bar";
 });
 
-const saved = localStorage.getItem("uzuki-bracelet");
+const saved = localStorage.getItem("uzuki-bouquet");
 if (saved) {
   try {
     const design = JSON.parse(saved);
-    if (palettes[design.palette]) {
-      currentPalette = design.palette;
-      seed = design.seed || 0;
-      document.querySelectorAll(".palette-button").forEach((button) => {
-        const active = button.dataset.palette === currentPalette;
-        button.classList.toggle("active", active);
-        button.setAttribute("aria-pressed", String(active));
-      });
+    if (Array.isArray(design.flowers) && design.flowers.every((flower) => flowerNames[flower])) {
+      selectedFlowers = design.flowers;
     }
-  } catch { /* Ignore an invalid local design. */ }
+    if (["petal", "linen", "sage"].includes(design.wrap)) currentWrap = design.wrap;
+    if (Number.isInteger(design.seed)) seed = design.seed;
+  } catch { /* Ignore an invalid saved bouquet. */ }
 }
 
-drawBracelet();
+updateFlowerChoices();
+updateWrapChoices();
+drawBouquet();
 
 document.querySelector("#year").textContent = new Date().getFullYear();
 const menuToggle = document.querySelector(".menu-toggle");
