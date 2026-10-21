@@ -31,3 +31,25 @@ saved on demand in localStorage on the current browser and origin. Exported PNG
 cards include the design and material quantities. Inner circumference is estimated
 from a ring of tangent beads, subtracting the largest bead radius; actual fit and
 workshop material availability must be checked in person.
+
+## Sample bead catalog
+
+`data/beads.js` holds sample material metadata, source-image rectangles, and
+styling prompts. The studio includes 14 image-based samples across seven color
+families, plus the four original illustrations needed for saved V1 designs.
+Image samples have simulated 6/8/10 mm variants; filters select color, size and
+category. The ⓘ dialog shows the reference, styling inspiration and unconfirmed
+origin/price fields. PNG export uses the same image crops and grows to accommodate
+the full material list. See `assets/beads/README.md` for provenance and replacement.
+
+## Direct bead editing
+
+Drag a material onto the bracelet to insert it at the highlighted position. Drag
+an existing bead along the ring to reorder it. Drop it outside the ring or into
+the central hole to remove it; the ring previews the removal before release.
+Tray drops outside the canvas, Escape, pointer cancellation and loss of window
+focus leave the design unchanged. Each completed drag is one undo step.
+On touch screens, drag material beads by their image; the rest of the card/tray
+remains scrollable. Dragging near the viewport edge scrolls the page. Clicking
+still adds/selects/replaces beads. Focused bracelet beads also support Left/Right,
+Delete/Backspace and Escape. Drag edits do not require the Done button.
