@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>Uzuki flower</title>
+  <rect width="64" height="64" rx="16" fill="#596052"/>
+  <g fill="#f2d9d5">
+    <ellipse cx="32" cy="22" rx="10" ry="14"/>
+    <ellipse cx="42" cy="32" rx="14" ry="10"/>
+    <ellipse cx="32" cy="42" rx="10" ry="14"/>
+    <ellipse cx="22" cy="32" rx="14" ry="10"/>
+  </g>
+  <circle cx="32" cy="32" r="7" fill="#eee9d1"/>
+</svg>
