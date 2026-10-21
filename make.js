@@ -133,7 +133,7 @@
       });
       bead.addEventListener('click',()=>{selected=selected===i?-1:i; render(); $('bracelet').children[i]?.focus();}); $('bracelet').append(bead);
     });
-    $('center-label').textContent=state.beads.length?'made of little moments':'your first bead starts a little story';
+    $('center-label').textContent=state.beads.length?'made by you':'add your first bead';
     $('capacity-note').textContent=`${g.inner===null?'—':g.inner.toFixed(1)+' cm'} / ${(state.wrist+2).toFixed(1)} cm max inside`;
     $('capacity-note').classList.toggle('over-limit',g.inner!==null&&g.inner>state.wrist+2);
     $('bead-count').textContent=`${state.beads.length} ${state.beads.length===1?'bead':'beads'}`;
@@ -184,7 +184,7 @@
       const image=images.get(m.image);
       if(image){const [sx,sy,sw,sh]=m.crop;ctx.save();ctx.shadowBlur=0;ctx.shadowOffsetY=0;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.clip();ctx.drawImage(image,sx*image.width,sy*image.height,sw*image.width,sh*image.height,x-r,y-r,2*r,2*r);ctx.restore();}
     });
-    ctx.shadowBlur=0;ctx.shadowOffsetY=0;ctx.fillStyle='#829174';ctx.font='italic 29px Georgia';ctx.textAlign='center';ctx.fillText('made of little moments',600,615);ctx.textAlign='left';ctx.fillStyle='#53614d';ctx.font='20px sans-serif';ctx.fillText(`${exportState.beads.length} beads  ·  Wrist ${exportState.wrist.toFixed(1)} cm  ·  Estimated inside ${g.inner===null?'—':g.inner.toFixed(1)+' cm'}`,80,990);
+    ctx.shadowBlur=0;ctx.shadowOffsetY=0;ctx.fillStyle='#829174';ctx.font='italic 43px Georgia';ctx.textAlign='center';ctx.fillText('uzuki。',600,600);ctx.font='17px sans-serif';ctx.fillText('made by you',600,635);ctx.textAlign='left';ctx.fillStyle='#53614d';ctx.font='20px sans-serif';ctx.fillText(`${exportState.beads.length} beads  ·  Wrist ${exportState.wrist.toFixed(1)} cm  ·  Estimated inside ${g.inner===null?'—':g.inner.toFixed(1)+' cm'}`,80,990);
     ctx.font='17px sans-serif';totals.forEach((m,i)=>{const x=i%2?640:80,y=1060+Math.floor(i/2)*53;ctx.fillStyle=m.color;ctx.beginPath();ctx.arc(x+10,y-6,10,0,Math.PI*2);ctx.fill();ctx.fillStyle='#53614d';ctx.fillText(`${m.name} · ${m.size} mm × ${m.count}`,x+35,y);});
     ctx.font='italic 24px Georgia';ctx.fillText('Designed slowly. Kept close.',80,footerY);ctx.font='16px sans-serif';ctx.fillText('AI reference imagery · simulated sizes · not verified product photos.',80,footerY+48);ctx.fillText('Bring your design to a Uzuki workshop.',80,footerY+80);
     const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/png'));
