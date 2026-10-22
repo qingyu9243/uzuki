@@ -53,3 +53,12 @@ On touch screens, drag material beads by their image; the rest of the card/tray
 remains scrollable. Dragging near the viewport edge scrolls the page. Clicking
 still adds/selects/replaces beads. Focused bracelet beads also support Left/Right,
 Delete/Backspace and Escape. Drag edits do not require the Done button.
+
+## Mobile workbench
+
+At widths up to 800 px, the studio fits the dynamic viewport: the bracelet stays
+above an independently scrollable bead tray. Color/size controls stay visible,
+and tapping a material adds or replaces a bead with a brief arrival animation
+(respecting reduced-motion preferences). The bottom “Size, list & save” button
+opens a native modal sheet with the existing design controls. The same controls
+move back to the desktop sidebar at larger widths; inputs are not duplicated.

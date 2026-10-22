@@ -11,6 +11,7 @@
   <script src="data/beads.js" defer></script>
   <script src="bead-drag.js" defer></script>
   <script src="make.js" defer></script>
+  <script src="mobile-studio.js" defer></script>
 </head>
 <body class="studio-page">
   <header class="studio-header"><a class="wordmark" href="index.html" aria-label="Uzuki home">uzuki<span>。</span></a><a class="back-link" href="index.html#make">← Back to the studio</a><span class="header-caption">little things, made by you</span></header>
@@ -42,6 +43,8 @@
     </div>
     <footer class="studio-footer"><span>Designed slowly. Kept close.</span><a href="index.html#workshops">Made with Uzuki · Explore workshops ↗</a></footer>
   </main>
+  <div class="mobile-dock"><span>Tap to add · drag to arrange</span><button id="open-design-details" aria-haspopup="dialog" aria-controls="design-details-sheet">Size, list &amp; save ↗</button></div>
+  <dialog id="design-details-sheet" aria-labelledby="details-heading"><button id="close-design-details" aria-label="Close design details" autofocus>×</button><div id="mobile-details-slot"></div></dialog>
   <dialog id="bead-info" aria-labelledby="info-title" aria-describedby="info-description">
     <button id="close-info" aria-label="Close bead details" autofocus>×</button>
     <div id="info-image"></div><p class="eyebrow">Meet your materials</p><h2 id="info-title"></h2><p id="info-subtitle"></p><p id="info-description"></p>

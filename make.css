@@ -80,3 +80,67 @@
 .bead-drag-ghost.will-remove::after { content:'×'; position:absolute; right:-6px; top:-8px; width:22px; height:22px; line-height:20px; text-align:center; border-radius:50%; background:#855752; color:white; font-size:20px; }
 .capacity-hint { font:10px/1.6 'DM Sans',sans-serif; color:#758369; text-align:center; margin:0 0 8px; }
 .capacity-hint .over-limit { color:#995b4f; font-weight:600; }
+/* Mobile workbench: both the design and the bead tray stay in view. */
+.mobile-dock { display:none; }
+#design-details-sheet { width:min(480px,100%); max-width:none; max-height:88dvh; margin:auto auto 0; padding:0; border:1px solid #d6dbc9; border-radius:18px 18px 0 0; background:#fffdf8; color:var(--ink); overscroll-behavior:contain; }
+#design-details-sheet::backdrop { background:#28332466; }
+#close-design-details { position:sticky; top:10px; float:right; margin:10px 12px -44px 0; z-index:6; border:1px solid #d6dbc9; width:36px; height:36px; border-radius:50%; background:#fffdf8; color:var(--ink); font-size:24px; }
+#design-details-sheet .details { padding:28px 24px max(24px,env(safe-area-inset-bottom)); }
+#design-details-sheet .save-actions { position:static; }
+@keyframes bead-arrival { from { scale:.5; opacity:.35; } to { scale:1; opacity:1; } }
+@media(prefers-reduced-motion:no-preference) { .bead-just-added { animation:bead-arrival .25s ease-out; } }
+@media(max-width:800px) {
+  body.studio-page { height:100dvh; overflow:hidden; display:flex; flex-direction:column; }
+  .studio-header { flex:0 0 48px; min-height:48px; padding:0 18px; }
+  .studio-header .wordmark { font-size:27px; }
+  .studio-main { flex:1; min-height:0; width:100%; padding:0; display:flex; flex-direction:column; }
+  .studio-intro,.studio-footer { display:none; }
+  .inspiration { flex:0 0 42px; box-sizing:border-box; padding:5px 12px; flex-wrap:nowrap; overflow-x:auto; gap:6px; scrollbar-width:none; }
+  .inspiration > span { display:none; }
+  .inspiration button { flex-shrink:0; padding:7px 10px; font-size:10px; white-space:nowrap; }
+  .inspiration .palette { width:28px; }
+  .workbench { flex:1; min-height:0; display:grid; grid-template-columns:minmax(0,1fr); grid-template-rows:42% minmax(0,1fr); border:0; border-radius:0; overflow:hidden; }
+  .canvas-panel { grid-column:1; grid-row:1; min-height:0; padding:5px 16px 0; position:relative; overflow:hidden; }
+  .canvas-top { flex:0 0 28px; }
+  .canvas-top h2 { font-size:9px; }
+  .history-controls button { width:30px; height:28px; }
+  .bracelet-stage { flex:1; min-height:0; width:auto; height:auto; max-width:100%; aspect-ratio:1; margin:0 auto; }
+  .canvas-caption { flex:0 0 17px; padding:0; font-size:9px; }
+  .capacity-hint { font-size:9px; margin:0; line-height:14px; }
+  .drag-hint { flex:0 0 auto; min-height:14px; max-height:28px; overflow-y:auto; font-size:9px; line-height:14px; margin:0 0 3px; }
+  .canvas-note { display:none; }
+  .center-wordmark { font-size:25px; }#center-label { font-size:9px; }
+  .edit-tools { position:absolute; bottom:3px; left:10px; right:10px; z-index:8; padding:7px 10px; min-height:0; box-shadow:0 3px 15px #53614d20; background:#fffdf7; }
+  .edit-tools p { font-size:10px; margin-bottom:5px; }
+  .edit-tools button { min-height:30px; }
+  .materials { grid-column:1; grid-row:2; min-height:0; border:0; border-top:1px solid #d5dbca; border-radius:16px 16px 0 0; padding:9px 12px 0; display:flex; flex-direction:column; overflow:hidden; }
+  .materials .panel-heading { display:flex; align-items:baseline; gap:10px; flex:0 0 auto; }
+  .materials .panel-heading .eyebrow { display:none; }
+  .materials .panel-heading h2 { font-size:20px; margin:0; white-space:nowrap; }
+  .materials .panel-heading p { min-height:0; font-size:9px; line-height:1.3; margin:0; max-height:24px; overflow:auto; }
+  .material-tabs { flex:0 0 auto; margin:5px 0; padding:0; border:0; }
+  .material-tabs button { padding:5px 12px; min-height:28px; }
+  .tray-filters { flex:0 0 auto; grid-template-columns:1fr 1fr; }
+  .tray-filters label { font-size:9px; }
+  .tray-filters select { margin-top:2px; padding:5px 8px; min-height:30px; font-size:12px; }
+  #material-results { flex:0 0 auto; margin:4px 0; font-size:9px; }
+  .material-grid { flex:1; min-height:0; max-height:none; overflow-y:auto; overscroll-behavior:contain; -webkit-overflow-scrolling:touch; grid-template-columns:repeat(4,minmax(0,1fr)); padding:3px 2px 10px; margin:0; gap:7px; }
+  .material-item .material-card { min-height:96px; padding:17px 3px 8px; }
+  .material-item .material-card .bead-swatch { width:36px; height:36px; }
+  .material-card span:not(.bead-swatch) { font-size:9px; line-height:1.2; }
+  .material-info { width:28px; height:28px; top:0; right:0; }
+  .materials > .tray-footnote:last-child { display:none; }
+  .mobile-dock { flex:0 0 auto; display:flex; align-items:center; justify-content:space-between; gap:10px; padding:8px 12px calc(8px + env(safe-area-inset-bottom)); border-top:1px solid #d6dbc9; background:#fffdf8; }
+  .mobile-dock > span { font-size:9px; color:#78846c; }
+  .mobile-dock button { min-height:38px; padding:9px 14px; border:0; border-radius:5px; background:#738269; color:#fffdf7; font-size:12px; }
+  #design-name { font-size:16px; }
+  #bead-info { width:100%; max-width:none; margin:auto 0 0; border-radius:18px 18px 0 0; max-height:85dvh; }
+}
+@media(max-width:360px) { .material-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }.mobile-dock > span { max-width:100px; } }
+@media(max-width:800px) and (max-height:550px) { .workbench { grid-template-rows:46% minmax(0,1fr); }.materials .panel-heading,.material-tabs,#material-results { display:none; }.tray-filters { margin-bottom:5px; }.inspiration { flex-basis:34px; }.studio-header { flex-basis:40px; min-height:40px; }.capacity-hint { display:none; } }
+@media(max-width:800px) and (min-height:551px) {
+  .workbench { grid-template-rows:44% minmax(0,1fr); }
+  .canvas-top { position:absolute; top:4px; left:14px; right:14px; z-index:3; }
+  .bracelet-stage { margin-top:5px; }
+  #center-label { white-space:nowrap; font-size:8px; }
+}

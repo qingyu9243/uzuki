@@ -91,12 +91,18 @@
       dragEditor.bind(button,m.id);
       button.addEventListener('click',()=>{
         if(selected<0 && state.beads.length>=60) { message('The tray holds up to 60 beads. Remove a bead before adding another.'); return; }
-        change(()=>{ if(selected<0) state.beads.push(m.id); else state.beads[selected]=m.id; });
+        const addedIndex=selected<0?state.beads.length:selected;
+        const scrollTop=$('material-grid').scrollTop;
+        if(change(()=>{ if(selected<0) state.beads.push(m.id); else state.beads[selected]=m.id; })) {
+          $('bracelet').children[addedIndex]?.classList.add('bead-just-added');
+          $('drag-status').textContent=`${m.name} · ${m.size} mm ${selected<0?'added':'replaced'}.`;
+        }
+        $('material-grid').scrollTop=scrollTop;
       });
       const info=document.createElement('button');info.className='material-info';info.textContent='i';info.setAttribute('aria-label',`About ${m.name}`);info.setAttribute('aria-haspopup','dialog');info.addEventListener('click',()=>showInfo(m));
       card.append(button,info);$('material-grid').append(card);
     });
-    $('material-help').textContent=selected<0?'Drag a bead onto the bracelet, or tap to add. On touch, drag from the bead image.':'Tap a material to replace the selected bead.';
+    $('material-help').textContent=selected<0?(window.matchMedia('(max-width: 800px)').matches?'Tap to add. Drag beads to arrange.':'Drag a bead onto the bracelet, or tap to add. On touch, drag from the bead image.'):'Tap a material to replace the selected bead.';
   }
   function showInfo(m) {
     $('info-title').textContent=m.name;
