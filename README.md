@@ -5,7 +5,7 @@ The website for **Uzuki** — handmade flowers, tiny rituals and creative worksh
 ## First release
 
 - Brand-led landing page for flowers, handmade objects and workshops
-- A standalone crystal bracelet studio (`make.html`): templates, bead editing, undo/redo, estimated sizing, browser-local saving, and PNG design cards
+- A standalone crystal bracelet studio (`bracelet.html`): templates, bead editing, undo/redo, estimated sizing, browser-local saving, and PNG design cards
 - A homepage bouquet maker prototype
 - Etsy links for purchases (replace the placeholder Etsy links with the shop URL)
 - GitHub Pages deployment through GitHub Actions
@@ -24,7 +24,7 @@ the browser.
 ## Local preview
 
 Run `python3 -m http.server 8000` from this directory, then open
-`http://localhost:8000/make.html?type=bracelet`.
+`http://localhost:8000/bracelet.html`.
 
 The bracelet studio is buildless and uses illustrative material choices. Drafts are
 saved on demand in localStorage on the current browser and origin. Exported PNG
@@ -62,3 +62,18 @@ and tapping a material adds or replaces a bead with a brief arrival animation
 (respecting reduced-motion preferences). The bottom “Size, list & save” button
 opens a native modal sheet with the existing design controls. The same controls
 move back to the desktop sidebar at larger widths; inputs are not duplicated.
+
+## Bouquet studio
+
+Open `bouquet.html` for the standalone flower studio. Twelve illustrated materials,
+category/material filters, live quantities and estimated prices, wrapping and
+ribbon options, three starting palettes, rearrangement, zoom, and a message card.
+Save/load and the design bag use browser-local storage; there is no payment or
+order submission. Prices are samples and finishes are included. Each design is
+limited to 36 stems and 12 of each material. See `assets/flowers/README.md` for
+asset provenance. The homepage flower studio entry and bracelet craft switch link
+to this page; the original homepage mini-builder is preserved.
+
+The homepage **Make** dropdown links to **Crystal Bracelet** (`bracelet.html`)
+and **Flower Bouquet** (`bouquet.html`). The legacy `make.html` URL redirects
+to the bracelet studio; `make.html?type=bouquet` redirects to the flower studio.

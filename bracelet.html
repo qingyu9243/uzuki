@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A little space to make something yours. Design a crystal bracelet with Uzuki, save your creation, and bring it to a workshop.">
+  <title>The Bead Studio — Uzuki</title>
+  <link rel="icon" type="image/svg+xml" sizes="any" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Josefin+Sans:wght@300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=type-dm-sans"><link rel="stylesheet" href="make.css?v=type-dm-sans">
+  <script src="data/beads.js" defer></script>
+  <script src="bead-drag.js" defer></script>
+  <script src="make.js?v=type-dm-sans" defer></script>
+  <script src="mobile-studio.js" defer></script>
+</head>
+<body class="studio-page">
+  <header class="studio-header"><a class="wordmark" href="index.html" aria-label="Uzuki home">uzuki</a><a class="back-link" href="index.html#make">← Back to the studio</a><span class="header-caption">little things, made by you</span></header>
+  <main class="studio-main">
+    <div class="studio-intro"><div><p class="eyebrow">UZUKI / BEAD STUDIO</p><h1>Make something <em>yours.</em></h1><p>Choose your beads. Make a piece to keep.</p></div><nav class="craft-switch" aria-label="Choose your craft"><a href="bracelet.html" aria-current="page">Crystal Bracelet</a><a href="bouquet.html">Flower Bouquet ↗</a></nav></div>
+    <section class="inspiration" aria-label="Starting designs"><span class="eyebrow">A place to begin</span><button data-template="rose"><span class="palette rose-palette"></span>Rose garden</button><button data-template="forest"><span class="palette forest-palette"></span>Forest walk</button><button data-template="moon"><span class="palette moon-palette"></span>Moonlight</button><button data-template="blank" class="blank-template">Start from scratch ↗</button></section>
+    <div class="workbench">
+      <section class="materials panel" aria-labelledby="materials-heading"><div class="panel-heading"><span class="eyebrow">Materials</span><h2 id="materials-heading">The bead tray</h2><p id="material-help">Tap a bead to add it to your bracelet.</p></div>
+        <div class="material-tabs" role="group" aria-label="Material category"><button data-category="all" aria-pressed="true">All</button><button data-category="stone" aria-pressed="false">Stones</button><button data-category="accent" aria-pressed="false">Accents</button></div>
+        <div class="tray-filters"><label>Color<select id="color-filter"><option value="all">All colors</option><option value="pink">Pink &amp; red</option><option value="white">White &amp; clear</option><option value="blue">Blue</option><option value="green">Green</option><option value="purple">Purple</option><option value="yellow">Yellow &amp; gold</option><option value="black">Black &amp; brown</option></select></label><label>Preview size<select id="size-filter"><option value="4">4 mm</option><option value="6">6 mm</option><option value="8" selected>8 mm</option><option value="10">10 mm</option></select></label></div><p id="material-results" class="tray-footnote" role="status"></p>
+        <div id="material-grid" class="material-grid"></div><p class="tray-footnote">AI reference images · simulated sizes. Actual materials, origin and pricing are not yet confirmed.</p>
+      </section>
+      <section class="canvas-panel" aria-labelledby="preview-heading"><div class="canvas-top"><h2 id="preview-heading" class="eyebrow">Your bracelet</h2><div class="history-controls"><button id="undo" aria-label="Undo" title="Undo">↶</button><button id="redo" aria-label="Redo" title="Redo">↷</button></div></div>
+        <div class="bracelet-stage"><div class="stage-ring"></div><div class="stage-center" aria-hidden="true"><span class="center-wordmark">uzuki</span><span id="center-label">made by you</span></div><div id="bracelet" role="group" aria-label="Bracelet beads. Select a bead to edit it."></div></div>
+        <div class="canvas-caption"><span id="bead-count">0 beads</span><span>Drag to arrange · tap to edit</span></div>
+        <p class="capacity-hint"><span id="capacity-note"></span> · limit = wrist + 2 cm</p>
+        <p id="drag-status" class="drag-hint" role="status" aria-live="polite">Drag to arrange · drop off the ring to remove.</p>
+        <div class="edit-tools" id="edit-tools" hidden><p id="selection-label">Add a bead, or select one to edit.</p><div><button id="move-left" aria-label="Move selected bead counterclockwise">← Move</button><button id="move-right" aria-label="Move selected bead clockwise">Move →</button><button id="remove-bead">Remove</button><button id="deselect">Done</button></div></div>
+        <p class="canvas-note">A small ritual. No wrong combinations.</p>
+      </section>
+      <aside class="details panel" aria-labelledby="details-heading"><div class="panel-heading"><span class="eyebrow">Your design</span><h2 id="details-heading">Made by you</h2></div>
+        <label class="field-label" for="design-name">Give it a name</label><input id="design-name" maxlength="48" value="Rose garden" autocomplete="off">
+        <div class="wrist-heading"><label class="field-label" for="wrist">Your wrist size</label><output id="wrist-value" for="wrist">15.0 cm</output></div><input id="wrist" type="range" min="12" max="22" step="0.5" value="15"><div class="range-labels"><span>12 cm</span><span>22 cm</span></div>
+        <div class="fit-card"><div><span>Estimated inner circumference</span><strong id="inner-size">—</strong></div><p id="fit-note"></p><small>Approximate fit, allowing for bead thickness. Check the fit when stringing.</small></div>
+        <details class="material-summary" open><summary>In your bracelet <span id="summary-count"></span></summary><ul id="material-list"></ul></details>
+        <div class="save-actions"><button id="save-design" class="button-primary">Save my design <span>↗</span></button><button id="export-design" class="button-secondary">↓ Download design card</button><p id="save-status" role="status" aria-live="polite">Your design stays in this browser when saved.</p></div>
+        <a class="workshop-link" href="https://luma.com/hozuw85f" target="_blank" rel="noreferrer">Bring it to a workshop <span>↗</span></a>
+      </aside>
+    </div>
+    <footer class="studio-footer"><span>Designed slowly. Kept close.</span><a href="index.html#workshops">Made with Uzuki · Explore workshops ↗</a></footer>
+  </main>
+  <div class="mobile-dock"><span>Tap to add · drag to arrange</span><button id="open-design-details" aria-haspopup="dialog" aria-controls="design-details-sheet">Your design ↗</button></div>
+  <dialog id="design-details-sheet" aria-labelledby="details-heading"><button id="close-design-details" aria-label="Close design details" autofocus>×</button><div id="mobile-details-slot"></div></dialog>
+  <dialog id="bead-info" aria-labelledby="info-title" aria-describedby="info-description">
+    <button id="close-info" aria-label="Close bead details" autofocus>×</button>
+    <div id="info-image"></div><p class="eyebrow">Meet your materials</p><h2 id="info-title"></h2><p id="info-subtitle"></p><p id="info-description"></p>
+    <dl><dt>Design intention</dt><dd id="info-intention"></dd><dt>Try pairing with</dt><dd id="info-pairing"></dd><dt>Origin &amp; material treatment</dt><dd>To be confirmed with the supplier.</dd><dt>Price / g</dt><dd>Not priced yet.</dd></dl>
+    <p class="info-disclaimer">Intentions are Uzuki styling prompts, not gemstone properties or health claims. Images and sizes are for visual exploration, not verified inventory.</p>
+    <a id="info-source-link" target="_blank" rel="noreferrer">View original AI reference ↗</a>
+  </dialog>
+  <noscript><p class="noscript-note">Please enable JavaScript to use the bead studio.</p></noscript>
+</body>
+</html>

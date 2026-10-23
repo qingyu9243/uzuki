@@ -10,6 +10,22 @@ const note = document.querySelector("#design-note");
 let selectedFlowers = ["cosmos", "daisy"];
 let currentWrap = "petal";
 let seed = 0;
+let stemCount = 9;
+let ribbon = 'lavender';
+const ribbonColors = { lavender:'#a58fa7', cream:'#d8c8a8', rose:'#ba8993' };
+function updateExtras() {
+  document.querySelectorAll('.size-choice').forEach(button => {
+    const active=Number(button.dataset.size)===stemCount;
+    button.classList.toggle('active',active);button.setAttribute('aria-pressed',String(active));
+  });
+  document.querySelectorAll('.ribbon-choice').forEach(button => {
+    const active=button.dataset.ribbon===ribbon;
+    button.classList.toggle('active',active);button.setAttribute('aria-pressed',String(active));
+  });
+  document.querySelector('.bouquet-ribbon').style.background=ribbonColors[ribbon];
+}
+document.querySelectorAll('.size-choice').forEach(button=>button.addEventListener('click',()=>{stemCount=Number(button.dataset.size);updateExtras();drawBouquet();}));
+document.querySelectorAll('.ribbon-choice').forEach(button=>button.addEventListener('click',()=>{ribbon=button.dataset.ribbon;updateExtras();note.textContent=bouquetNote();}));
 
 function updateFlowerChoices() {
   document.querySelectorAll(".flower-choice").forEach((button) => {
@@ -31,20 +47,24 @@ function updateWrapChoices() {
 function bouquetNote() {
   const flowers = selectedFlowers.map((flower) => flowerNames[flower]);
   if (!flowers.length) return "Pick at least one bloom to begin";
-  return `A soft posy of ${flowers.join(" & ")}`;
+  return `${stemCount} stems · ${flowers.join(" & ")}`;
 }
 
 function drawBouquet() {
   bouquet.innerHTML = "";
+  document.querySelector('#save-button').disabled=!selectedFlowers.length;
+  document.querySelector('#shuffle-button').disabled=!selectedFlowers.length;
+  bouquet.setAttribute('aria-label',bouquetNote());
   if (!selectedFlowers.length) {
     note.textContent = bouquetNote();
     return;
   }
 
-  const arrangement = [
-    [14, 177, -28], [28, 214, -17], [42, 191, -7], [50, 230, 0],
-    [59, 198, 8], [71, 217, 17], [85, 181, 28], [36, 235, -12], [65, 238, 12],
-  ];
+  const arrangement = Array.from({length:stemCount},(_,i)=>{
+    const spread=stemCount===5?36:stemCount===9?52:60;
+    const position=stemCount===1?0:i/(stemCount-1)-.5;
+    return [50+position*spread,180+Math.sin(i*2.4+seed*1.7)*22+(i%3)*12,position*48+Math.sin(i+seed)*5];
+  });
 
   arrangement.forEach(([x, stemHeight, tilt], index) => {
     const flower = selectedFlowers[(index + seed) % selectedFlowers.length];
@@ -84,17 +104,19 @@ document.querySelectorAll(".wrap-choice").forEach((button) => {
 });
 
 document.querySelector("#shuffle-button").addEventListener("click", () => {
-  seed = (seed + 1) % Math.max(selectedFlowers.length, 1);
+  seed = (seed + 1) % 1000;
   drawBouquet();
 });
 
 document.querySelector("#save-button").addEventListener("click", () => {
-  const design = { flowers: selectedFlowers, wrap: currentWrap, seed, savedAt: new Date().toISOString() };
-  localStorage.setItem("uzuki-bouquet", JSON.stringify(design));
+  const design = { flowers: selectedFlowers, wrap: currentWrap, seed, stemCount, ribbon, savedAt: new Date().toISOString() };
+  try { localStorage.setItem("uzuki-bouquet", JSON.stringify(design)); }
+  catch { note.textContent='Could not save in this browser. Please allow browser storage and try again.';return; }
   note.textContent = "saved in this browser · ready to bring to the flower bar";
 });
 
-const saved = localStorage.getItem("uzuki-bouquet");
+let saved;
+try { saved = localStorage.getItem("uzuki-bouquet"); } catch { /* The builder works without storage. */ }
 if (saved) {
   try {
     const design = JSON.parse(saved);
@@ -102,10 +124,13 @@ if (saved) {
       selectedFlowers = design.flowers;
     }
     if (["petal", "linen", "sage"].includes(design.wrap)) currentWrap = design.wrap;
-    if (Number.isInteger(design.seed)) seed = design.seed;
+    if (Number.isInteger(design.seed) && design.seed >= 0) seed = design.seed % 1000;
+    if ([5,9,13].includes(design.stemCount)) stemCount=design.stemCount;
+    if (Object.hasOwn(ribbonColors,design.ribbon)) ribbon=design.ribbon;
   } catch { /* Ignore an invalid saved bouquet. */ }
 }
 
+updateExtras();
 updateFlowerChoices();
 updateWrapChoices();
 drawBouquet();
@@ -122,3 +147,19 @@ nav.querySelectorAll("a").forEach((link) => link.addEventListener("click", () =>
   nav.classList.remove("open");
   menuToggle.setAttribute("aria-expanded", "false");
 }));
+
+const makeDropdown = document.querySelector('.make-dropdown');
+function closeMakeDropdown() { makeDropdown.open = false; }
+document.addEventListener('click', (event) => {
+  if (!makeDropdown.contains(event.target)) closeMakeDropdown();
+});
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && makeDropdown.open) {
+    closeMakeDropdown();
+    makeDropdown.querySelector('summary').focus();
+  }
+});
+makeDropdown.addEventListener('focusout', (event) => {
+  if (!makeDropdown.contains(event.relatedTarget)) closeMakeDropdown();
+});
+nav.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMakeDropdown));

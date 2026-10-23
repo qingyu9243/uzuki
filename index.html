@@ -15,8 +15,8 @@
       href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Josefin+Sans:wght@300&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=type-dm-sans" />
-    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="styles.css?v=make-menu-1" />
+    <script src="script.js?v=make-menu-1" defer></script>
   </head>
   <body>
     <header class="site-header">
@@ -25,7 +25,14 @@
       <nav id="site-nav" class="site-nav" aria-label="Main navigation">
         <a href="#story">Story</a>
         <a href="#workshops">Workshops</a>
-        <a href="make.html?type=bracelet">Make</a>
+        <details class="make-dropdown">
+          <summary>Make <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="m1 1 4 4 4-4" stroke="currentColor" stroke-width="1.2"/></svg></summary>
+          <div class="make-menu">
+            <span class="make-menu-caption">A little space to create</span>
+            <a href="bracelet.html"><span>Crystal Bracelet<small>Choose your beads. Find your rhythm.</small></span><span aria-hidden="true">↗</span></a>
+            <a href="bouquet.html"><span>Flower Bouquet<small>Gather a little garden of your own.</small></span><span aria-hidden="true">↗</span></a>
+          </div>
+        </details>
         <a href="#shop">Shop</a>
       </nav>
       <a class="header-note" href="#contact">Say hello <span>↗</span></a>
@@ -111,22 +118,22 @@
           <p class="lab-status"><span></span> Live prototype</p>
         </div>
         <div class="make-entry-grid">
-          <a class="make-entry bracelet-entry" href="make.html?type=bracelet">
+          <a class="make-entry bracelet-entry" href="bracelet.html">
             <span class="eyebrow">New · The bead studio</span>
             <h3>A little ritual,<br /><em>made by you.</em></h3>
             <p>Choose your stones, find your colors, and make a bracelet that feels like you.</p>
             <span class="entry-cta">Design a bracelet ↗</span>
             <span class="entry-beads" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
           </a>
-          <a class="make-entry flower-entry" href="#bouquet-title">
+          <a class="make-entry flower-entry" href="bouquet.html">
             <span class="eyebrow">The flower bar</span>
             <h3>A handful<br /><em>of happy.</em></h3>
             <p>Gather your favorite blooms and wrap up a little garden to give.</p>
-            <span class="entry-cta">Try the bouquet maker ↓</span>
+            <span class="entry-cta">Enter the flower studio ↗</span>
             <span class="entry-flower" aria-hidden="true">✿</span>
           </a>
         </div>
-        <div class="lab-grid">
+        <div class="lab-grid" id="flower-builder">
           <div class="lab-copy">
             <p class="eyebrow">Uzuki flower bar</p>
             <h2 id="bouquet-title">Gather a little<br /><em>garden to give.</em></h2>
@@ -145,12 +152,17 @@
                 <span class="mini-flower sweetpea"></span> Sweet pea
               </button>
             </div>
+            <p class="wrap-label">Bouquet size</p>
+            <div class="size-picker" role="group" aria-label="Bouquet size"><button class="size-choice" data-size="5" aria-pressed="false">Petite · 5 stems</button><button class="size-choice active" data-size="9" aria-pressed="true">Classic · 9 stems</button><button class="size-choice" data-size="13" aria-pressed="false">Full · 13 stems</button></div>
             <p class="wrap-label">Choose a wrap</p>
             <div class="wrap-picker" role="group" aria-label="Choose bouquet wrapping">
               <button class="wrap-choice active" data-wrap="petal" aria-pressed="true"><span></span> Petal paper</button>
               <button class="wrap-choice" data-wrap="linen" aria-pressed="false"><span></span> Linen cream</button>
               <button class="wrap-choice" data-wrap="sage" aria-pressed="false"><span></span> Sage tissue</button>
             </div>
+            <p class="wrap-label">Ribbon</p>
+            <div class="ribbon-picker" role="group" aria-label="Ribbon color"><button class="ribbon-choice active" data-ribbon="lavender" aria-pressed="true">Lavender</button><button class="ribbon-choice" data-ribbon="cream" aria-pressed="false">Cream</button><button class="ribbon-choice" data-ribbon="rose" aria-pressed="false">Dusty rose</button></div>
+            <p class="bouquet-disclaimer">Illustrated preview · explore colors and proportions.</p>
           </div>
           <div class="bouquet-maker">
             <div class="bouquet-frame" aria-live="polite">
@@ -162,7 +174,7 @@
               <button id="shuffle-button" class="button-secondary">Arrange again</button>
               <button id="save-button" class="button-primary">Save my bouquet <span>↗</span></button>
             </div>
-            <p id="design-note" class="design-note">A soft posy of cosmos &amp; daisies</p>
+            <p id="design-note" class="design-note" role="status">A soft posy of cosmos &amp; daisies</p>
           </div>
         </div>
       </section>
