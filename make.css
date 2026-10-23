@@ -144,3 +144,17 @@
   .bracelet-stage { margin-top:5px; }
   #center-label { white-space:nowrap; font-size:8px; }
 }
+/* Give the phone canvas to the bracelet; keep supporting text at its edges. */
+@media(max-width:800px) {
+  .canvas-panel { padding:0 12px; }
+  .canvas-top { position:absolute; top:6px; right:12px; left:auto; z-index:3; }
+  .canvas-top h2 { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+  .bracelet-stage { flex:1; margin:0 auto; transform:scale(1.12); transform-origin:center; }
+  .canvas-caption { position:absolute; top:14px; left:14px; padding:0; z-index:3; font-size:10px; pointer-events:none; }
+  .canvas-caption > span:last-child { display:none; }
+  .capacity-hint { position:absolute; bottom:5px; left:14px; margin:0; font-size:0; pointer-events:none; }
+  #capacity-note { font-size:9px; }
+  .mobile-dock > span { display:none; }
+  .mobile-dock .drag-hint { flex:1; min-width:0; min-height:0; max-height:42px; margin:0; text-align:left; font-size:10px; line-height:14px; overflow-y:auto; }
+  .mobile-dock button { flex-shrink:0; }
+}
