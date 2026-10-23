@@ -102,7 +102,7 @@
       const info=document.createElement('button');info.className='material-info';info.textContent='i';info.setAttribute('aria-label',`About ${m.name}`);info.setAttribute('aria-haspopup','dialog');info.addEventListener('click',()=>showInfo(m));
       card.append(button,info);$('material-grid').append(card);
     });
-    $('material-help').textContent=selected<0?(window.matchMedia('(max-width: 800px)').matches?'Tap to add. Drag beads to arrange.':'Drag a bead onto the bracelet, or tap to add. On touch, drag from the bead image.'):'Tap a material to replace the selected bead.';
+    $('material-help').textContent=selected<0?(window.matchMedia('(max-width: 800px)').matches?'Tap to add · drag to arrange.':'Tap to add, or drag a bead onto the bracelet.'):'Tap a material to replace the selected bead.';
   }
   function showInfo(m) {
     $('info-title').textContent=m.name;
@@ -177,22 +177,23 @@
     const rows=Math.ceil(totals.length/2), footerY=Math.max(1360,1100+rows*53);
     $('export-design').disabled=true;message('Preparing your design card…');
     try {
+    await Promise.all([document.fonts.load('300 46px "Josefin Sans"'),document.fonts.load('400 51px "DM Sans"')]);
     const sources=[...new Set(exportState.beads.map(id=>byId[id].image).filter(Boolean))];
     const images=new Map(await Promise.all(sources.map(async src=>[src,await loadImage(src)])));
 
     const canvas=document.createElement('canvas');canvas.width=1200;canvas.height=footerY+180;const ctx=canvas.getContext('2d');
     if(!ctx){message('Image export is unavailable in this browser. Try saving your design instead.');return;}
-    ctx.fillStyle='#f8f5ee';ctx.fillRect(0,0,1200,canvas.height);ctx.fillStyle='#53614d';ctx.font='46px Georgia';ctx.fillText('uzuki。',80,95);ctx.font='18px sans-serif';ctx.fillText('THE BEAD STUDIO / MADE BY YOU',80,143);
-    ctx.font='italic 51px Georgia';let title=exportState.name.trim()||'My little ritual';while(ctx.measureText(title).width>1040&&title.length>1)title=title.slice(0,-2)+'…';ctx.fillText(title,80,230);
+    ctx.fillStyle='#f8f5ee';ctx.fillRect(0,0,1200,canvas.height);ctx.fillStyle='#53614d';ctx.font='300 46px "Josefin Sans", sans-serif';ctx.letterSpacing='3.68px';ctx.fillText('uzuki',80,95);ctx.letterSpacing='0px';ctx.font='18px "DM Sans", sans-serif' ;ctx.fillText('THE BEAD STUDIO / MADE BY YOU',80,143);
+    ctx.font='51px "DM Sans", sans-serif' ;let title=exportState.name.trim()||'My little ritual';while(ctx.measureText(title).width>1040&&title.length>1)title=title.slice(0,-2)+'…';ctx.fillText(title,80,230);
     ctx.fillStyle='#edf0e5';ctx.fillRect(80,280,1040,650);const g=geometry(exportState.beads),scale=235/g.displayRadius;
     ctx.strokeStyle='#c7cfbb';ctx.lineWidth=2;ctx.beginPath();ctx.arc(600,605,235,0,Math.PI*2);ctx.stroke();
     exportState.beads.forEach((id,i)=>{const m=byId[id],a=g.angles[i]-Math.PI/2,x=600+235*Math.cos(a),y=605+235*Math.sin(a),r=m.size*scale/2;const grad=ctx.createRadialGradient(x-r*.4,y-r*.4,r*.05,x,y,r);grad.addColorStop(0,'#fffdf4');grad.addColorStop(.5,m.color);grad.addColorStop(1,m.color);ctx.fillStyle=grad;ctx.shadowColor='#59605230';ctx.shadowBlur=9;ctx.shadowOffsetY=5;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();
       const image=images.get(m.image);
       if(image){const [sx,sy,sw,sh]=m.crop;ctx.save();ctx.shadowBlur=0;ctx.shadowOffsetY=0;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.clip();ctx.drawImage(image,sx*image.width,sy*image.height,sw*image.width,sh*image.height,x-r,y-r,2*r,2*r);ctx.restore();}
     });
-    ctx.shadowBlur=0;ctx.shadowOffsetY=0;ctx.fillStyle='#829174';ctx.font='italic 43px Georgia';ctx.textAlign='center';ctx.fillText('uzuki。',600,600);ctx.font='17px sans-serif';ctx.fillText('made by you',600,635);ctx.textAlign='left';ctx.fillStyle='#53614d';ctx.font='20px sans-serif';ctx.fillText(`${exportState.beads.length} beads  ·  Wrist ${exportState.wrist.toFixed(1)} cm  ·  Estimated inside ${g.inner===null?'—':g.inner.toFixed(1)+' cm'}`,80,990);
-    ctx.font='17px sans-serif';totals.forEach((m,i)=>{const x=i%2?640:80,y=1060+Math.floor(i/2)*53;ctx.fillStyle=m.color;ctx.beginPath();ctx.arc(x+10,y-6,10,0,Math.PI*2);ctx.fill();ctx.fillStyle='#53614d';ctx.fillText(`${m.name} · ${m.size} mm × ${m.count}`,x+35,y);});
-    ctx.font='italic 24px Georgia';ctx.fillText('Designed slowly. Kept close.',80,footerY);ctx.font='16px sans-serif';ctx.fillText('AI reference imagery · simulated sizes · not verified product photos.',80,footerY+48);ctx.fillText('Bring your design to a Uzuki workshop.',80,footerY+80);
+    ctx.shadowBlur=0;ctx.shadowOffsetY=0;ctx.fillStyle='#829174';ctx.font='300 43px "Josefin Sans", sans-serif';ctx.letterSpacing='3.44px';ctx.textAlign='center';ctx.fillText('uzuki',600,600);ctx.letterSpacing='0px';ctx.font='17px "DM Sans", sans-serif' ;ctx.fillText('made by you',600,635);ctx.textAlign='left';ctx.fillStyle='#53614d';ctx.font='20px "DM Sans", sans-serif' ;ctx.fillText(`${exportState.beads.length} beads  ·  Wrist ${exportState.wrist.toFixed(1)} cm  ·  Estimated inside ${g.inner===null?'—':g.inner.toFixed(1)+' cm'}`,80,990);
+    ctx.font='17px "DM Sans", sans-serif' ;totals.forEach((m,i)=>{const x=i%2?640:80,y=1060+Math.floor(i/2)*53;ctx.fillStyle=m.color;ctx.beginPath();ctx.arc(x+10,y-6,10,0,Math.PI*2);ctx.fill();ctx.fillStyle='#53614d';ctx.fillText(`${m.name} · ${m.size} mm × ${m.count}`,x+35,y);});
+    ctx.font='24px "DM Sans", sans-serif' ;ctx.fillText('Designed slowly. Kept close.',80,footerY);ctx.font='16px "DM Sans", sans-serif' ;ctx.fillText('AI reference imagery · simulated sizes · not verified product photos.',80,footerY+48);ctx.fillText('Bring your design to a Uzuki workshop.',80,footerY+80);
     const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/png'));
     ((blob)=>{if(!blob){message('The image could not be created. Please try again.');return;}const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`uzuki-${(exportState.name||'bracelet').replace(/[^a-z0-9_-]+/gi,'-').slice(0,48)}.png`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);message('Design card downloaded · your colors, beads & little details.');})(blob);
     } catch { message('Image export could not finish. Please try again from the local preview server.'); }
