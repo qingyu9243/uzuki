@@ -77,3 +77,22 @@ to this page; the original homepage mini-builder is preserved.
 The homepage **Make** dropdown links to **Crystal Bracelet** (`bracelet.html`)
 and **Flower Bouquet** (`bouquet.html`). The legacy `make.html` URL redirects
 to the bracelet studio; `make.html?type=bouquet` redirects to the flower studio.
+
+Bouquet arrangements use seeded flower-head placement with overlap avoidance and
+a shared stem binding. Arrange changes the composition; Undo restores the previous
+arrangement seed. Saved designs reproduce their layout. Run the layout checks with
+`node --test tests/bouquet-layout.test.cjs`.
+
+Drag a flower head in the bouquet to move it while its stem remains gathered at the
+ribbon. Selected flowers also support arrow keys (Shift for larger steps), and
+Escape cancels an active drag. Undo restores up to 30 placement/Arrange changes;
+changing flower quantities starts a new arrangement history. Manual positions are
+included in saved designs and the design bag. Arrange clears manual placement;
+Undo restores it. Bounds and keyboard step are configured in `arrangementRules`.
+
+Select a flower to use the left-hand Copy, Delete, Top layer, and Bottom tools.
+Copy duplicates one stem at the same artwork size, within the existing quantity
+limits; Delete removes only the selected instance. Both update the estimate and
+support Undo. Selecting a flower temporarily lifts it for editing; layer commands
+immediately show and save its permanent stacking order. Click empty preview space
+or press Escape to deselect. Saved designs include stacking order and artwork sizes.
